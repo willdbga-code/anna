@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ANNA SOUZA | Beauty Experience</title>
+    
+    <meta name="theme-color" content="#EFEBE6">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & SplitType -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body class="theme-social">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="loader-title-wrapper">
+                <h1 class="loader-title">ANNA SOUZA</h1>
+            </div>
+            <div class="preloader-tagline">BEAUTY EXPERIENCE</div>
+        </div>
+    </div>
+
+    <!-- Grain / Noise Overlay (Luxury effect) -->
+    <div class="noise-overlay"></div>
+
+    <div class="app-container">
+        
+        <header class="main-header">
+            <h1 class="brand">ANNA SOUZA</h1>
+            <p class="tagline">Exclusive Beauty</p>
+        </header>
+
+        <nav class="luxury-tabs">
+            <button class="tab-btn active" data-target="social">Social</button>
+            <button class="tab-btn" data-target="noivas">Noivas</button>
+            <button class="tab-btn" data-target="15anos">15 Anos</button>
+            <button class="tab-btn" data-target="cursos">Cursos</button>
+            <button class="tab-btn" data-target="portfolio">Portfólio</button>
+            <div class="tab-indicator"></div>
+        </nav>
+
+        <!-- ABA: SOCIAL -->
+        <section id="tab-social" class="tab-content active-tab">
+            <div class="client-info fade-in-up delay-1">
+                <input type="text" id="s_nome" class="luxury-input" placeholder="Seu Nome">
+                <div class="input-row">
+                    <input type="text" id="s_data" class="luxury-input date-picker" placeholder="Selecionar Data">
+                    <input type="time" id="s_hora" class="luxury-input" value="18:00">
+                </div>
+            </div>
+
+            <div class="section-title fade-in-up delay-2">
+                <h2>Make & Hair</h2>
+                <p>Produções de alta durabilidade para eventos</p>
+            </div>
+
+            <div class="package-grid">
+                <!-- PACOTE: MAKE SOCIAL -->
+                <article class="package-card fade-in-up delay-3" data-id="social">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Maquiagem Social</h3>
+                            <p class="card-desc">Produção completa e sofisticada</p>
+                        </div>
+                        <span class="card-price-inline">R$ 150</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Maquiagem com analise de colorimetria</li>
+                            <li>Produtos resistentes com durabilidade</li>
+                            <li>Ideal para festas e eventos sociais</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PACOTE: FORMANDAS -->
+                <article class="package-card fade-in-up delay-4" data-id="formandas">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Maquiagem Beauty Para Formandas</h3>
+                            <p class="card-desc">Maquiagem resistente à celebrações</p>
+                        </div>
+                        <span class="card-price-inline highlight">R$ 175</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Maquiagem com analise de visagismo e colorimetria</li>
+                            <li>Produtos resistente ao suor</li>
+                            <li>Maquiagem que aparece nas fotografias</li>
+                            <li>Ideal para aproveitar sua conquista sem se preocupar com os flashs</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PACOTE: NOIVA CIVIL -->
+                <article class="package-card fade-in-up delay-5" data-id="civil">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Noiva Civil</h3>
+                            <p class="card-desc">Técnica Noiva Alta Durabilidade</p>
+                        </div>
+                        <span class="card-price-inline">R$ 200</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Maquiagem com analise de Visagismo do olhar e colorimetria</li>
+                            <li>Foco em textura natural e luminosidade</li>
+                            <li>Tecnicas a prova dagua, resistentes a emoção</li>
+                            <li>Produtos Resistentes de alta durabilidade</li>
+                            <li>Perfeito para fotos e eventos de um dia inteiro</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <!-- EXTRAS SOCIAL (Penteado) -->
+            <div class="extras-section fade-in-up delay-5">
+                <article class="package-card styling-card" id="card-penteado">
+                    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+                        <div>
+                            <h3 class="card-name">Penteado & Styling</h3>
+                            <p class="card-desc">Adicione um penteado à sua produção</p>
+                        </div>
+                        <span class="card-price-inline highlight-value" id="hair-price-display">R$ 70+</span>
+                    </div>
+                    
+                    <div class="card-details always-open">
+                        <div class="radio-group" style="padding-top: 10px;">
+                            <label class="luxury-radio">
+                                <input type="radio" name="hairType" value="0" checked>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Sem Penteado</span>
+                                <span class="extra-price"></span>
+                            </label>
+                            <label class="luxury-radio">
+                                <input type="radio" name="hairType" value="70">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Ondas Soltas ou Escova Modelada</span>
+                                <span class="extra-price">+ R$ 70</span>
+                            </label>
+                            <label class="luxury-radio">
+                                <input type="radio" name="hairType" value="150">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Penteado Semipreso, com Trança ou lateral</span>
+                                <span class="extra-price">+ R$ 150</span>
+                            </label>
+                            <label class="luxury-radio">
+                                <input type="radio" name="hairType" value="170">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Penteado Preso, coque, Ponytail ou Cabelo Cacheado</span>
+                                <span class="extra-price">+ R$ 170</span>
+                            </label>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="toggle-wrapper" style="margin-top: 20px;">
+                    <span class="toggle-label">Atendimento Externo?</span>
+                    <label class="luxury-switch">
+                        <input type="checkbox" id="s_externo">
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+                <div id="combo-alert" class="promo-alert"></div>
+            </div>
+        </section>
+
+        <!-- ABA: NOIVAS -->
+        <section id="tab-noivas" class="tab-content hidden">
+            <div class="client-info fade-in-up">
+                <input type="text" id="n_nome" class="luxury-input" placeholder="Seu Nome Completo">
+                <div class="input-row">
+                    <input type="text" id="n_data" class="luxury-input date-picker" placeholder="Data">
+                    <input type="time" id="n_hora" class="luxury-input" value="16:00">
+                </div>
+            </div>
+
+            <div class="section-title fade-in-up delay-1">
+                <h2>Coleção Bridal</h2>
+                <p>Experiências exclusivas para o seu grande dia</p>
+            </div>
+
+            <div class="package-grid">
+                <!-- PÉROLA -->
+                <article class="package-card fade-in-up delay-2" data-id="perola" data-price="1000" data-group="noiva">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Pérola <span class="card-badge">Essencial</span></h3>
+                        </div>
+                        <span class="card-price-inline">R$ 1.000</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Consultoria e Teste de Visual (15-20 dias)</li>
+                            <li>Acompanhamento no Making Of (30 min)</li>
+                            <li>Produção Blindada para a Cerimônia</li>
+                            <li><strong>Presente:</strong> 50% de desconto para uma maquiagem social a ser realizada fora do dia do ensaio.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- BRIDE LOVE -->
+                <article class="package-card fade-in-up delay-3" data-id="bride_love" data-price="1500" data-group="noiva">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Bride Love <span class="card-badge highlight-badge">O Favorito</span></h3>
+                        </div>
+                        <span class="card-price-inline highlight">R$ 1.500</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Teste Completo de Make & Hair (30-10 dias)</li>
+                            <li>Massagem Relaxante (Pré-Wedding)</li>
+                            <li>Produção da Noiva (Alta Resistência)</li>
+                            <li><strong>+1 Produção Extra (Mãe/Madrinha)</strong></li>
+                            <li>Coffee Break Especial (2 pessoas)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- DELUXE -->
+                <article class="package-card fade-in-up delay-4" data-id="deluxe" data-price="2200" data-group="noiva">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Deluxe <span class="card-badge">Completo VIP</span></h3>
+                        </div>
+                        <span class="card-price-inline">R$ 2.200</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li><strong>Civil:</strong> Make + Ondulado (Pré-Wedding)</li>
+                            <li><strong>Pele:</strong> Limpeza + Peeling de Diamante</li>
+                            <li>Teste Completo</li>
+                            <li>Dia da Noiva VIP + 1 Acompanhante</li>
+                            <li>Coffee Break Premium</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <div id="extras-area-noiva" class="extras-section fade-in-up" style="display: none; margin-top: 30px;">
+                <div class="slider-wrapper">
+                    <div class="slider-header">
+                        <span>Madrinhas (+R$ 290 cada)</span>
+                        <span class="slider-val" id="madrinhas-display">0</span>
+                    </div>
+                    <input type="range" id="n_madrinhas" class="luxury-range" min="0" max="15" value="0">
+                </div>
+                <div class="toggle-wrapper" style="margin-top: 20px;">
+                    <span class="toggle-label">Atendimento Externo?</span>
+                    <label class="luxury-switch">
+                        <input type="checkbox" id="n_externo">
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="fade-in-up delay-2" style="margin-top: 30px; text-align: center; color: #666; font-size: 0.85rem; padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">
+                <p style="margin: 0 0 5px 0;"><strong>Valor de sinal para confirmação da data:</strong> R$ 200</p>
+                <p style="margin: 0;"><strong>Para pagamento completo via cartão:</strong> 5x sem JUROS</p>
+            </div>
+        </section>
+
+        <!-- ABA: 15 ANOS -->
+        <section id="tab-15anos" class="tab-content hidden">
+            <div class="client-info fade-in-up">
+                <input type="text" id="d_nome" class="luxury-input" placeholder="Nome da Debutante">
+                <div class="input-row">
+                    <input type="text" id="d_data" class="luxury-input date-picker" placeholder="Data da Festa">
+                    <input type="time" id="d_hora" class="luxury-input" value="19:00">
+                </div>
+            </div>
+
+            <div class="section-title fade-in-up delay-1">
+                <h2>Sweet 15</h2>
+                <p>Especialmente para Debutantes</p>
+            </div>
+
+            <div class="package-grid">
+                <!-- PACOTE: ESSENCIAL -->
+                <article class="package-card fade-in-up delay-2" data-id="debutante_essencial" data-price="400" data-group="debutante">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Essencial</h3>
+                        </div>
+                        <span class="card-price-inline">R$ 400</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Make & Hair Blindado para a Festa</li>
+                            <li>Pele leve, iluminada e jovem</li>
+                            <li>Cílios Postiços Profissionais</li>
+                            <li><strong>Presente:</strong> 50% em uma maquiagem para ensaio.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PACOTE: GOLD -->
+                <article class="package-card fade-in-up delay-3" data-id="debutante_gold" data-price="600" data-group="debutante">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Gold <span class="card-badge highlight-badge">Intermediário</span></h3>
+                        </div>
+                        <span class="card-price-inline highlight">R$ 600</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li><strong>Ensaio Fotográfico:</strong> Make e Penteado</li>
+                            <li><strong>Dia da Festa:</strong> Make e Penteado Blindados</li>
+                            <li>Cílios Postiços Profissionais</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PACOTE: DIAMANTE -->
+                <article class="package-card fade-in-up delay-4" data-id="debutante_diamante" data-price="850" data-group="debutante">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Diamante <span class="card-badge">Completo</span></h3>
+                        </div>
+                        <span class="card-price-inline">R$ 850</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li><strong>Ensaio Fotográfico:</strong> Make e Penteado Premium</li>
+                            <li><strong>Dia da Festa:</strong> Make e Penteado Blindados</li>
+                            <li>Auxílio em trocas de vestido na festa</li>
+                            <li>Kitzinho Retoque de presente</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <div id="extras-area-debutante" class="extras-section fade-in-up" style="display: none; margin-top: 30px;">
+                <div class="toggle-wrapper">
+                    <span class="toggle-label">Teste de Penteado e Make (Adicional R$ 150)</span>
+                    <label class="luxury-switch">
+                        <input type="checkbox" id="d_teste">
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="fade-in-up delay-2" style="margin-top: 30px; text-align: center; color: #666; font-size: 0.85rem; padding: 15px; border-top: 1px solid rgba(0,0,0,0.05);">
+                <p style="margin: 0 0 5px 0;"><strong>Valor de sinal para confirmar a produção:</strong> R$ 100</p>
+                <p style="margin: 0;"><strong>Para pagamento completo via cartão:</strong> 3x sem JUROS</p>
+            </div>
+        </section>
+
+        <!-- ABA: CURSOS -->
+        <section id="tab-cursos" class="tab-content hidden">
+            <div class="client-info fade-in-up">
+                <input type="text" id="c_nome" class="luxury-input" placeholder="Seu Nome">
+            </div>
+
+            <div class="section-title fade-in-up delay-1">
+                <h2>Auto Maquiagem</h2>
+                <p>Domine a arte de realçar sua própria beleza</p>
+            </div>
+
+            <div class="package-grid">
+                <!-- INDIVIDUAL -->
+                <article class="package-card fade-in-up delay-2" data-id="curso_ind" data-price="220" data-group="curso">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">VIP Individual</h3>
+                            <p class="card-desc">Foco total de aprendizado em você</p>
+                        </div>
+                        <span class="card-price-inline">R$ 220</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list grid-list">
+                            <li>Preparação de Pele Profissional</li>
+                            <li>Colorimetria: Tom e Subtom</li>
+                            <li>Contornos e Iluminações</li>
+                            <li>Olhos: Técnica Dia e Noite</li>
+                            <li>Aplicação de Cílios</li>
+                            <li><strong>Bônus:</strong> Mentoria de Compras</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- DUPLA AMIGAS -->
+                <article class="package-card fade-in-up delay-3" data-id="curso_dupla" data-price="400" data-group="curso">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-name">Dupla Amigas</h3>
+                            <p class="card-desc">Aprendam e divirtam-se juntas</p>
+                        </div>
+                        <span class="card-price-inline">R$ 400</span>
+                    </div>
+                    <div class="card-details">
+                        <ul class="package-list">
+                            <li>Mesmo conteúdo do VIP Individual</li>
+                            <li>Prática simultânea com supervisão</li>
+                            <li>Desconto super especial para a dupla</li>
+                            <li>Mentoria de produtos personalizada</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ABA: PORTFOLIO -->
+        <section id="tab-portfolio" class="tab-content hidden">
+            <div class="section-title fade-in-up">
+                <h2>Obras de Arte</h2>
+                <p>Nossas produções e belezas criadas</p>
+            </div>
+            
+            <div class="masonry-grid fade-in-up delay-1" id="portfolio-container">
+                <!-- Imagens injetadas via JS do fotos.json -->
+                <div class="loading-state">Carregando portfólio...</div>
+            </div>
+        </section>
+
+        <!-- Espaço para o footer não tampar conteúdo -->
+        <div style="height: 140px;"></div>
+    </div>
+
+    <!-- FOOTER STICKY LUXO -->
+    <div id="sticky-footer" class="luxury-footer">
+        <div class="total-area">
+            <span class="total-label">Investimento Total</span>
+            <span class="total-value" id="total-display">R$ 0,00</span>
+        </div>
+        <button class="btn-primary" id="btn-agendar">
+            <span class="btn-text">AGENDAR NO WHATSAPP</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+    </div>
+
+    <!-- LIGHTBOX PORTFOLIO -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+    <script src="data/fotos.js"></script>
+    <script src="script.js?v=2"></script>
+</body>
+</html>

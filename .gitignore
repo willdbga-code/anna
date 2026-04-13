@@ -1,0 +1,8 @@
+# GitHub safe ignores
+*.tif
+node_modules/
+optimize.js
+.DS_Store
+Thumbs.db
+desktop.ini
+data/fotos.json
