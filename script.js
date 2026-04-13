@@ -348,7 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (currentTab === '15anos') {
             total += selections.debutantes.packagePrice;
         }
-        }
         else if (currentTab === 'cursos') {
             total += selections.cursos.packagePrice;
         }
