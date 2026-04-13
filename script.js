@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('n_externo').addEventListener('change', (e) => { selections.noivas.externo = e.target.checked; updateFooter(); });
 
     // Debutantes Extras
-    document.getElementById('d_teste').addEventListener('change', (e) => { selections.debutantes.teste = e.target.checked; updateFooter(); });
+    // Test logic removed as requested
 
 
     // --- 7. PRICE CALCULATIONS & FOOTER ---
@@ -343,11 +343,11 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
         else if (currentTab === 'noivas') {
             total += selections.noivas.packagePrice;
-            if(total > 0) total += (selections.noivas.madrinhas * 290);
+            if(total > 0) total += (selections.noivas.madrinhas * 300);
         }
         else if (currentTab === '15anos') {
             total += selections.debutantes.packagePrice;
-            if(total > 0 && selections.debutantes.teste) total += 150;
+        }
         }
         else if (currentTab === 'cursos') {
             total += selections.cursos.packagePrice;
