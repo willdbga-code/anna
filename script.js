@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
         onComplete: () => {
             if (preloader) preloader.style.display = 'none';
             triggerReveals();
+            initFloralPaths();
+            animateFloralFrame('social');
         }
     });
 
@@ -95,6 +97,67 @@ document.addEventListener("DOMContentLoaded", () => {
                 once: true
             });
             stInstances.push(st);
+        });
+    }
+
+    // --- FLORAL LINE-ART DRAW ANIMATION SYSTEM ---
+    let floralTweens = [];
+
+    function initFloralPaths() {
+        const allPaths = document.querySelectorAll('.draw-path');
+        allPaths.forEach(path => {
+            try {
+                const length = path.getTotalLength();
+                path.style.strokeDasharray = length;
+                path.style.strokeDashoffset = length;
+            } catch(e) { /* skip invalid paths */ }
+        });
+    }
+
+    function animateFloralFrame(sectionId) {
+        // Kill previous floral tweens
+        floralTweens.forEach(tw => tw.kill());
+        floralTweens = [];
+
+        // Hide all floral SVGs first
+        document.querySelectorAll('.floral-svg').forEach(svg => {
+            svg.classList.remove('is-active');
+        });
+
+        // Reset all paths
+        document.querySelectorAll('.draw-path').forEach(path => {
+            try {
+                const len = path.getTotalLength();
+                gsap.set(path, { strokeDashoffset: len });
+            } catch(e) {}
+        });
+
+        const section = document.getElementById(`tab-${sectionId}`);
+        if (!section) return;
+
+        const svgs = section.querySelectorAll('.floral-svg');
+        const paths = section.querySelectorAll('.draw-path');
+        if (paths.length === 0) return;
+
+        // Show the SVG containers with opacity transition
+        svgs.forEach(svg => {
+            setTimeout(() => svg.classList.add('is-active'), 100);
+        });
+
+        // Animate each path with stagger
+        paths.forEach((path, i) => {
+            try {
+                const length = path.getTotalLength();
+                gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+
+                const tw = gsap.to(path, {
+                    strokeDashoffset: 0,
+                    duration: 1.8 + (i * 0.3),
+                    delay: 0.2 + (i * 0.15),
+                    ease: 'power2.inOut'
+                });
+                floralTweens.push(tw);
+            } catch(e) {}
         });
     }
 
@@ -162,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Restart GSAP Reveals on new section
             setTimeout(() => {
                 triggerReveals();
+                animateFloralFrame(target);
             }, 50);
 
             // Theme Change
