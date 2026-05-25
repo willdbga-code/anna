@@ -34,8 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         onComplete: () => {
             if (preloader) preloader.style.display = 'none';
             triggerReveals();
-            initFloralPaths();
-            animateFloralFrame('social');
         }
     });
 
@@ -100,66 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- FLORAL LINE-ART DRAW ANIMATION SYSTEM ---
-    let floralTweens = [];
 
-    function initFloralPaths() {
-        const allPaths = document.querySelectorAll('.draw-path');
-        allPaths.forEach(path => {
-            try {
-                const length = path.getTotalLength();
-                path.style.strokeDasharray = length;
-                path.style.strokeDashoffset = length;
-            } catch(e) { /* skip invalid paths */ }
-        });
-    }
-
-    function animateFloralFrame(sectionId) {
-        // Kill previous floral tweens
-        floralTweens.forEach(tw => tw.kill());
-        floralTweens = [];
-
-        // Hide all floral SVGs first
-        document.querySelectorAll('.floral-svg').forEach(svg => {
-            svg.classList.remove('is-active');
-        });
-
-        // Reset all paths
-        document.querySelectorAll('.draw-path').forEach(path => {
-            try {
-                const len = path.getTotalLength();
-                gsap.set(path, { strokeDashoffset: len });
-            } catch(e) {}
-        });
-
-        const section = document.getElementById(`tab-${sectionId}`);
-        if (!section) return;
-
-        const svgs = section.querySelectorAll('.floral-svg');
-        const paths = section.querySelectorAll('.draw-path');
-        if (paths.length === 0) return;
-
-        // Show the SVG containers with opacity transition
-        svgs.forEach(svg => {
-            setTimeout(() => svg.classList.add('is-active'), 100);
-        });
-
-        // Animate each path with stagger
-        paths.forEach((path, i) => {
-            try {
-                const length = path.getTotalLength();
-                gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-
-                const tw = gsap.to(path, {
-                    strokeDashoffset: 0,
-                    duration: 1.8 + (i * 0.3),
-                    delay: 0.2 + (i * 0.15),
-                    ease: 'power2.inOut'
-                });
-                floralTweens.push(tw);
-            } catch(e) {}
-        });
-    }
 
     // --- STATE MANAGEMENT ---
     let currentTab = 'social';
@@ -179,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
             packagePrice: 0,
             packageName: '',
             madrinhas: 0,
-            externo: false
+            externo: false,
+            postWedding: false
         },
         debutantes: {
             packageId: null,
@@ -213,30 +153,50 @@ document.addEventListener("DOMContentLoaded", () => {
         tab.addEventListener('click', () => {
             const target = tab.dataset.target;
             
-            // UI Update
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            updateTabIndicator(tab);
-            
-            sections.forEach(s => s.classList.add('hidden'));
-            const activeSection = document.getElementById(`tab-${target}`);
-            activeSection.classList.remove('hidden');
-
-            // Restart GSAP Reveals on new section
-            setTimeout(() => {
-                triggerReveals();
-                animateFloralFrame(target);
-            }, 50);
-
-            // Theme Change
-            body.className = `theme-${target}`;
-            currentTab = target;
-
-            if (target === 'portfolio' && !document.getElementById('portfolio-container').hasAttribute('data-loaded')) {
-                loadPortfolio();
+            // Premium Bouquet Page Transition Screen
+            const overlay = document.getElementById('transition-overlay');
+            if (overlay) {
+                // Set custom radial gradient bouquet base on target theme
+                let gradient = '';
+                if (target === 'social') gradient = 'radial-gradient(circle at center, #FAF6F0 0%, #DCD0CD 100%)';
+                else if (target === 'noivas') gradient = 'radial-gradient(circle at center, #FCFBF9 0%, #E9E1E1 100%)';
+                else if (target === '15anos') gradient = 'radial-gradient(circle at center, #FAF2F2 0%, #E9CCD2 100%)';
+                else if (target === 'cursos') gradient = 'radial-gradient(circle at center, #ECECE4 0%, #CECCA7 100%)';
+                else if (target === 'portfolio') gradient = 'radial-gradient(circle at center, #F4EAE5 0%, #CFBCB4 100%)';
+                
+                overlay.style.background = gradient;
+                overlay.classList.add('active');
             }
 
-            updateFooter();
+            setTimeout(() => {
+                // UI Update at peak opacity
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                updateTabIndicator(tab);
+                
+                sections.forEach(s => s.classList.add('hidden'));
+                const activeSection = document.getElementById(`tab-${target}`);
+                activeSection.classList.remove('hidden');
+
+                // Restart GSAP Reveals on new section
+                triggerReveals();
+ 
+                // Theme Change
+                body.className = `theme-${target}`;
+                currentTab = target;
+
+                if (target === 'portfolio' && !document.getElementById('portfolio-container').hasAttribute('data-loaded')) {
+                    loadPortfolio();
+                }
+
+                updateFooter();
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 380);
+
+            setTimeout(() => {
+                if (overlay) overlay.classList.remove('active');
+            }, 450);
         });
     });
 
@@ -307,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const groupId = card.dataset.group || 'social'; // Using group to know which tab logic applies
             const id = card.dataset.id;
-            const price = parseInt(card.dataset.price || (id === 'social' ? 150 : (id === 'formandas' ? 175 : 200)));
+            const price = parseInt(card.dataset.price || (id === 'social' ? 160 : (id === 'formandas' ? 175 : 200)));
             const name = card.querySelector('.card-name').textContent.trim();
 
             const isSelected = card.classList.contains('selected');
@@ -361,14 +321,52 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 6. EXTRAS & INPUTS LOGIC ---
     // Social Hair
     const hairRadios = document.getElementsByName('hairType');
+    const hairLengthOpts = document.getElementById('hair-length-options');
+    const lengthRadios = document.getElementsByName('hairLength');
 
     hairRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             const val = parseInt(radio.value);
             selections.social.hairPrice = val;
             selections.social.hairName = radio.nextElementSibling.nextElementSibling.textContent;
-            selections.social.hairLengthPrice = 0; // Length disabled
+            
+            if (val > 0) {
+                // Show dynamic hair length with smooth transition
+                if (hairLengthOpts) {
+                    hairLengthOpts.style.display = 'block';
+                    setTimeout(() => hairLengthOpts.classList.add('show'), 50);
+                }
+                
+                // Read current checked hair length
+                const checkedLength = Array.from(lengthRadios).find(r => r.checked);
+                if (checkedLength) {
+                    selections.social.hairLengthPrice = checkedLength.value === 'longo' ? 20 : 0;
+                    selections.social.hairLengthName = checkedLength.value === 'longo' ? 'Longo' : 'Curto/Médio';
+                }
+            } else {
+                // Hide dynamic hair length
+                if (hairLengthOpts) {
+                    hairLengthOpts.classList.remove('show');
+                    setTimeout(() => hairLengthOpts.style.display = 'none', 400);
+                }
+                selections.social.hairLengthPrice = 0;
+                selections.social.hairLengthName = 'Curto/Médio';
+                
+                // Reset length radios to default curto
+                const curtoRadio = Array.from(lengthRadios).find(r => r.value === 'curto');
+                if (curtoRadio) curtoRadio.checked = true;
+            }
             updateFooter();
+        });
+    });
+
+    lengthRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.checked) {
+                selections.social.hairLengthPrice = radio.value === 'longo' ? 20 : 0;
+                selections.social.hairLengthName = radio.value === 'longo' ? 'Longo' : 'Curto/Médio';
+                updateFooter();
+            }
         });
     });
 
@@ -386,6 +384,12 @@ document.addEventListener("DOMContentLoaded", () => {
         selections.noivas.madrinhas = val;
         updateFooter();
     });
+    
+    document.getElementById('n_post_wedding').addEventListener('change', (e) => {
+        selections.noivas.postWedding = e.target.checked;
+        updateFooter();
+    });
+    
     document.getElementById('n_externo').addEventListener('change', (e) => { selections.noivas.externo = e.target.checked; updateFooter(); });
 
     // Debutantes Extras
@@ -407,7 +411,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
         else if (currentTab === 'noivas') {
             total += selections.noivas.packagePrice;
-            if(total > 0) total += (selections.noivas.madrinhas * 300);
+            if(total > 0) {
+                total += (selections.noivas.madrinhas * 340);
+                if(selections.noivas.postWedding) total += 200;
+            }
         }
         else if (currentTab === '15anos') {
             total += selections.debutantes.packagePrice;
@@ -452,6 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 msg = `Olá Anna! Sou a Noiva *${name}*.%0A%0A🗓 *Data:* ${dateVal} às ${timeVal}%0A💍 *Coleção:* ${selections.noivas.packageName}%0A`;
                 if (selections.noivas.madrinhas > 0) msg += `👯‍♀️ *Madrinhas:* ${selections.noivas.madrinhas}%0A`;
+                if (selections.noivas.postWedding) msg += `✨ *Adicional:* Atendimento Post Wedding (+R$ 200)%0A`;
                 if (selections.noivas.externo) msg += `📍 *Local:* Atendimento Externo%0A`;
                 msg += `%0A💰 *Estimativa:* ${totalVal}`;
             } 
@@ -475,7 +483,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if(selections.social.makePrice > 0) msg += `• ${selections.social.makeName}%0A`;
                 if(selections.social.hairPrice > 0) {
-                    msg += `• Penteado: ${selections.social.hairName}%0A`;
+                    msg += `• Penteado: ${selections.social.hairName} (${selections.social.hairLengthName})%0A`;
                 }
                 if(selections.social.externo) msg += `📍 *Local:* Atendimento Externo%0A`;
                 

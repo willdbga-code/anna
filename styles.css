@@ -115,10 +115,24 @@ h1, h2, h3, .brand, .card-name {
 /* ==================== MAIN STRUCTURE ==================== */
 .app-container { 
     max-width: 600px; 
-    margin: 0 auto; 
-    padding: 20px 20px 80px 20px; 
+    margin: 40px auto; 
+    padding: 40px 35px 80px 35px; 
     position: relative; 
     z-index: 10; 
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(140, 115, 111, 0.04);
+    transition: background-color 1.2s var(--ease-in-out-cubic);
+}
+@media (max-width: 640px) {
+    .app-container {
+        margin: 15px auto;
+        padding: 30px 20px 60px 20px;
+        border-radius: 8px;
+    }
 }
 
 /* GSAP Base States */
@@ -175,9 +189,13 @@ h1, h2, h3, .brand, .card-name {
     font-weight: 600; 
     letter-spacing: 1px;
     cursor: pointer; 
-    transition: color 0.4s;
+    transition: color 0.3s, transform 0.3s var(--ease-out-expo);
     font-family: inherit;
     text-transform: uppercase;
+}
+.tab-btn:hover {
+    color: var(--brand-color);
+    transform: translateY(-2px);
 }
 .tab-btn.active { 
     color: var(--brand-color); 
@@ -256,21 +274,31 @@ h1, h2, h3, .brand, .card-name {
 
 .package-card {
     background: #FFF;
-    border-radius: 2px;
+    border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
     cursor: none;
-    transition: transform 0.7s var(--ease-out-expo), box-shadow 0.5s, border 0.3s;
+    transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo), border-color 0.4s;
     position: relative;
-    border: 1px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+.package-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 100%);
+    pointer-events: none;
 }
 .package-card:hover {
-    box-shadow: 0 15px 45px rgba(0,0,0,0.06);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(140, 115, 111, 0.12);
+    border-color: rgba(140, 115, 111, 0.25);
 }
-.package-card:active { transform: scale(0.98); }
+.package-card:active { transform: scale(0.97); }
 .package-card.selected {
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    border: 1px solid var(--accent-color);
+    box-shadow: 0 12px 35px rgba(140, 115, 111, 0.15);
+    border: 1.5px solid var(--accent-color);
+    transform: scale(1.01);
 }
 
 /* ==================== CUSTOM CURSOR ==================== */
@@ -577,20 +605,41 @@ input[type=range].luxury-range::-webkit-slider-thumb {
     background: var(--brand-color); 
     color: #FFF; 
     border: none; 
-    padding: 12px 25px; 
+    padding: 14px 28px; 
     border-radius: 30px; 
     font-family: 'Manrope', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 700; 
-    letter-spacing: 1px; 
+    letter-spacing: 1.5px; 
     cursor: pointer; 
     display: flex; 
     align-items: center; 
-    gap: 10px;
-    transition: background-color 0.3s, transform 0.2s;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: all 0.4s var(--ease-out-expo);
 }
-.btn-primary:hover { background: #333; }
-.btn-primary:active { transform: scale(0.95); }
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: all 0.6s var(--ease-in-out-cubic);
+}
+.btn-primary:hover { 
+    background: #2b2b2b; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+    letter-spacing: 2px;
+}
+.btn-primary:hover::before {
+    left: 100%;
+}
+.btn-primary:active { 
+    transform: translateY(1px) scale(0.97); 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
 
 /* WhatsApp Sending State */
 .btn-primary.sending .btn-text::after { content: '...'; animation: dots 1s infinite; position: absolute; margin-left:2px;}
@@ -640,116 +689,38 @@ input[type=range].luxury-range::-webkit-slider-thumb {
 }
 .lightbox-close:hover { color: #fff; }
 
-/* ==================== FLORAL LINE-ART FRAME SYSTEM ==================== */
 
-/* Each tab section needs relative positioning for the frame overlay */
-.tab-content {
-    position: relative;
-}
 
-/* Container: absolute overlay, no pointer events */
-.floral-frame {
-    position: absolute;
-    top: 0; left: -20px; right: -20px; bottom: 0;
+/* BOUQUET-THEMED PAGE TRANSITION OVERLAY */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #F6ECEB 0%, #DCD0CD 100%);
+    z-index: 9998;
     pointer-events: none;
-    z-index: 1;
-    overflow: visible;
+    opacity: 0;
+    transform: scale(1.08);
+    /* Transition when fading OUT (revealing page) - extremely slow, smooth and elegant */
+    transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.transition-overlay.active {
+    opacity: 1;
+    transform: scale(1);
+    /* Transition when fading IN (masking page) - faster for swift responsiveness */
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Individual SVG element */
-.floral-svg {
-    position: absolute;
-    opacity: 0; /* Hidden until GSAP animates */
-    color: var(--accent-color);
-    transition: color 1.2s var(--ease-in-out-cubic), opacity 0.6s ease;
+/* HAIR LENGTH OPTION CONTAINER CLASS */
+#hair-length-options {
+    transition: all 0.4s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateY(-10px);
+}
+#hair-length-options.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Size classes — generous sizing for visible impact */
-.floral-svg.size-sm { width: 150px; }
-.floral-svg.size-md { width: 200px; }
-.floral-svg.size-lg { width: 260px; }
-.floral-svg.size-xl { width: 320px; }
-
-/* Corner positioning */
-.floral-top-left {
-    top: -15px;
-    left: -5px;
-}
-.floral-top-right {
-    top: -15px;
-    right: -5px;
-    transform: scaleX(-1);
-}
-.floral-bottom-left {
-    bottom: -10px;
-    left: -5px;
-    transform: scaleY(-1);
-}
-.floral-bottom-right {
-    bottom: -10px;
-    right: -5px;
-    transform: scale(-1);
-}
-
-/* Additional bottom center positioning */
-.floral-bottom-center {
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) scaleY(-1);
-}
-
-/* Side positioning */
-.floral-left-center {
-    top: 50%;
-    left: -10px;
-    transform: translateY(-50%);
-}
-.floral-right-center {
-    top: 50%;
-    right: -10px;
-    transform: translateY(-50%) scaleX(-1);
-}
-
-/* Path draw properties */
-.draw-path {
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-    stroke: currentColor;
-}
-
-/* Active state — GSAP will toggle this */
-.floral-svg.is-active {
-    opacity: 0.35;
-}
-
-/* Noivas gets slightly stronger flowers for the bridal feel */
-[data-frame="noivas"] .floral-svg.is-active {
-    opacity: 0.30;
-}
-
-/* Portfolio gets very subtle so it doesn't fight photos */
-[data-frame="portfolio"] .floral-svg.is-active {
-    opacity: 0.22;
-}
-
-/* ===== RESPONSIVE FLORAL ===== */
-@media (max-width: 500px) {
-    .floral-frame {
-        left: -10px;
-        right: -10px;
-    }
-    .floral-svg.size-sm { width: 100px; }
-    .floral-svg.size-md { width: 140px; }
-    .floral-svg.size-lg { width: 180px; }
-    .floral-svg.size-xl { width: 220px; }
-    .floral-svg.is-active { opacity: 0.28; }
-}
-
-@media (max-width: 360px) {
-    .floral-svg.size-sm { width: 80px; }
-    .floral-svg.size-md { width: 110px; }
-    .floral-svg.size-lg { width: 140px; }
-    .floral-svg.size-xl { width: 170px; }
-    .floral-svg.is-active { opacity: 0.22; }
-}
