@@ -724,3 +724,201 @@ input[type=range].luxury-range::-webkit-slider-thumb {
     transform: translateY(0);
 }
 
+
+/* ==========================================================================
+   ADVANCED MOBILE & PORTRAIT RESPONSIVENESS LAYER
+   ========================================================================== */
+
+/* --- Tablet / Large Mobile Viewports (max-width: 768px) --- */
+@media (max-width: 768px) {
+    /* Brand typography scaling */
+    .brand {
+        font-size: clamp(2.2rem, 7vw, 2.8rem);
+    }
+    
+    /* Portfolio Masonry: shift to 2 columns */
+    .masonry-grid {
+        column-count: 2;
+        column-gap: 12px;
+    }
+    
+    .masonry-item {
+        margin-bottom: 12px;
+    }
+    
+    /* Navigation tabs adjustments */
+    .luxury-tabs {
+        max-width: 100%;
+        padding-bottom: 6px;
+        margin-bottom: 30px;
+    }
+    
+    .tab-btn {
+        font-size: 0.78rem;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Reduce vertical padding in app shell to maximize viewport utility */
+    .main-header {
+        margin: 35px 0 25px 0;
+    }
+}
+
+/* --- Small Mobile Devices / Narrow Screens (max-width: 480px) --- */
+@media (max-width: 480px) {
+    /* Stack date and time inputs vertically for perfect ergonomics */
+    .input-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .luxury-input {
+        padding: 12px 0;
+        font-size: 0.95rem;
+    }
+    
+    /* Portfolio Masonry: single full-width column */
+    .masonry-grid {
+        column-count: 1;
+        column-gap: 0;
+    }
+    
+    /* Luxury tabs mobile compression */
+    .luxury-tabs {
+        gap: 8px;
+    }
+    
+    .tab-btn {
+        font-size: 0.7rem;
+        letter-spacing: 0px;
+        padding: 8px 0;
+    }
+    
+    /* Package cards responsiveness */
+    .package-card {
+        border-radius: 6px;
+    }
+    
+    .card-header {
+        padding: 16px 16px 12px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .card-name {
+        font-size: 1.15rem;
+    }
+    
+    .card-price-inline {
+        font-size: 1.1rem;
+        align-self: flex-start;
+    }
+    
+    .card-desc {
+        font-size: 0.8rem;
+    }
+    
+    .package-list {
+        padding: 0 16px;
+    }
+    
+    .package-list li {
+        font-size: 0.8rem;
+        padding: 5px 0;
+    }
+    
+    .grid-list {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Radios & custom selectors */
+    .radio-group {
+        padding: 10px 16px 0;
+    }
+    
+    .luxury-radio {
+        padding: 10px 12px;
+    }
+    
+    .radio-label {
+        font-size: 0.85rem;
+    }
+    
+    /* Dynamic floating footer: optimize for small screen dimensions */
+    .luxury-footer {
+        width: 92%;
+        padding: 10px 10px 10px 18px;
+        border-radius: 30px;
+        bottom: 15px;
+    }
+    
+    .total-value {
+        font-size: 1.15rem;
+    }
+    
+    .total-label {
+        font-size: 0.55rem;
+    }
+    
+    .btn-primary {
+        padding: 12px 20px;
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+    }
+    
+    .btn-primary:hover {
+        letter-spacing: 1.2px;
+    }
+    
+    /* Lightbox controls adjustment for touch targets */
+    .lightbox-close {
+        top: 15px;
+        right: 20px;
+        font-size: 38px;
+    }
+}
+
+/* --- High-DPI & Extra-Small Mobile Fixes (max-width: 360px) --- */
+@media (max-width: 360px) {
+    .brand {
+        font-size: 1.8rem;
+    }
+    
+    .luxury-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px 12px;
+        border-bottom: none;
+    }
+    
+    .tab-btn {
+        font-size: 0.65rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        width: 45%;
+        text-align: center;
+    }
+    
+    .tab-btn.active {
+        border-bottom: 2px solid var(--brand-color);
+    }
+    
+    .tab-indicator {
+        display: none !important; /* Hide indicator on wrapped inline grids */
+    }
+    
+    .luxury-footer {
+        padding: 8px 8px 8px 12px;
+    }
+    
+    .total-value {
+        font-size: 1.05rem;
+    }
+    
+    .btn-primary {
+        padding: 10px 15px;
+        font-size: 0.68rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+
