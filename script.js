@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const groupId = card.dataset.group || 'social'; // Using group to know which tab logic applies
             const id = card.dataset.id;
-            const price = parseInt(card.dataset.price || (id === 'social' ? 160 : (id === 'formandas' ? 175 : 200)));
+            const price = parseInt(card.dataset.price || (id === 'social' ? 170 : (id === 'formandas' ? 200 : 200)));
             const name = card.querySelector('.card-name').textContent.trim();
 
             const isSelected = card.classList.contains('selected');
@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Read current checked hair length
                 const checkedLength = Array.from(lengthRadios).find(r => r.checked);
                 if (checkedLength) {
-                    selections.social.hairLengthPrice = checkedLength.value === 'longo' ? 20 : 0;
+                    selections.social.hairLengthPrice = checkedLength.value === 'longo' ? 30 : 0;
                     selections.social.hairLengthName = checkedLength.value === 'longo' ? 'Longo' : 'Curto/Médio';
                 }
             } else {
@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lengthRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             if (radio.checked) {
-                selections.social.hairLengthPrice = radio.value === 'longo' ? 20 : 0;
+                selections.social.hairLengthPrice = radio.value === 'longo' ? 30 : 0;
                 selections.social.hairLengthName = radio.value === 'longo' ? 'Longo' : 'Curto/Médio';
                 updateFooter();
             }
@@ -412,8 +412,8 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (currentTab === 'noivas') {
             total += selections.noivas.packagePrice;
             if(total > 0) {
-                total += (selections.noivas.madrinhas * 340);
-                if(selections.noivas.postWedding) total += 200;
+                total += (selections.noivas.madrinhas * 360);
+                if(selections.noivas.postWedding) total += 220;
             }
         }
         else if (currentTab === '15anos') {
@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 msg = `Olá Anna! Sou a Noiva *${name}*.%0A%0A🗓 *Data:* ${dateVal} às ${timeVal}%0A💍 *Coleção:* ${selections.noivas.packageName}%0A`;
                 if (selections.noivas.madrinhas > 0) msg += `👯‍♀️ *Madrinhas:* ${selections.noivas.madrinhas}%0A`;
-                if (selections.noivas.postWedding) msg += `✨ *Adicional:* Atendimento Post Wedding (+R$ 200)%0A`;
+                if (selections.noivas.postWedding) msg += `✨ *Adicional:* Atendimento Post Wedding (+R$ 220)%0A`;
                 if (selections.noivas.externo) msg += `📍 *Local:* Atendimento Externo%0A`;
                 msg += `%0A💰 *Estimativa:* ${totalVal}`;
             } 

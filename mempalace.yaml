@@ -1,0 +1,35 @@
+wing: anna_souza
+rooms:
+- name: data
+  description: Files from data/
+  keywords:
+  - data
+  - data
+- name: flat_design_simple_flower_outline
+  description: Files from flat-design-simple-flower-outline/
+  keywords:
+  - flat_design_simple_flower_outline
+  - flat-design-simple-flower-outline
+- name: girasol
+  description: Files from girasol/
+  keywords:
+  - girasol
+  - girasol
+- name: hand_drawn_birthday_invitation
+  description: Files from hand-drawn-birthday-invitation/
+  keywords:
+  - hand_drawn_birthday_invitation
+  - hand-drawn-birthday-invitation
+- name: img
+  description: Files from img/
+  keywords:
+  - img
+  - img
+- name: rosa
+  description: Files from Rosa/
+  keywords:
+  - rosa
+  - rosa
+- name: general
+  description: Files that don't fit other rooms
+  keywords: []
